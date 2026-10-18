@@ -1,0 +1,10 @@
+# Dependencies and build output
+node_modules
+dist
+.parcel-cache
+
+# macOS
+.DS_Store
+
+# Local tool state (per machine)
+.claude/settings.local.json

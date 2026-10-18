@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* shadcn tokens, mapped to a quiet Apple-system palette: white page, grey wash, ink buttons */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 3% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 3% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 12%;
+    --primary: 240 3% 12%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 14% 96%;
+    --secondary-foreground: 240 3% 12%;
+    --muted: 240 14% 96%;
+    --muted-foreground: 240 2% 40%;
+    --accent: 240 12% 94%;
+    --accent-foreground: 240 3% 12%;
+    --destructive: 5 64% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 90%;
+    --input: 240 4% 80%;
+    --ring: 240 3% 12%;
+    --radius: 0.75rem;
+
+    --success: #0f6e56; --success-bg: #e1f5ee;
+    --danger: #c0392b;  --danger-bg: #fdedec;
+    --info: #1a6fa5;    --info-bg: #e8f4fb;
+    --warning: #9a5f0a; --warning-bg: #fbf0dc;
+    --lift: 0%;
+    --accent-topic: hsl(var(--foreground));
+
+    /* Xcode "Default (Dark)" editor palette; same in both themes */
+    --code-bg: #1f1f24;  --code-fg: #dfdfe0; --code-gutter: #6c7986;
+    --code-keyword: #fc5fa3; --code-type: #5dd8ff; --code-string: #fc6a5d;
+    --code-number: #d0bf69;  --code-comment: #7f8c98; --code-attr: #fd8f3f;
+  }
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 240 11% 96%;
+    --card: 240 3% 11%;
+    --card-foreground: 240 11% 96%;
+    --popover: 240 3% 11%;
+    --popover-foreground: 240 11% 96%;
+    --primary: 240 11% 96%;
+    --primary-foreground: 240 3% 8%;
+    --secondary: 240 3% 14%;
+    --secondary-foreground: 240 11% 96%;
+    --muted: 240 3% 11%;
+    --muted-foreground: 240 2% 66%;
+    --accent: 240 3% 17%;
+    --accent-foreground: 240 11% 96%;
+    --destructive: 4 100% 62%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 3% 20%;
+    --input: 240 3% 28%;
+    --ring: 240 11% 96%;
+
+    --success: #30d158; --success-bg: rgba(48, 209, 88, .16);
+    --danger: #ff6a60;  --danger-bg: rgba(255, 69, 58, .18);
+    --info: #5aa9ff;    --info-bg: rgba(10, 132, 255, .18);
+    --warning: #ffb340; --warning-bg: rgba(255, 159, 10, .18);
+    --lift: 40%;
+  }
+
+  * { @apply border-border; }
+  /* scroll-padding keeps focused elements clear of the sticky header and session action bar */
+  html { -webkit-text-size-adjust: 100%; scroll-padding: 4.5rem 0 6.5rem; -webkit-tap-highlight-color: transparent; }
+  button, a, [role="button"], input, label { touch-action: manipulation; }
+  body { @apply bg-background text-foreground antialiased; font-size: 16px; line-height: 1.55; }
+  :focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+}
+
+/* Each topic carries its own colour. --tc is set inline; --accent-topic is the theme-aware version. */
+.tc {
+  --accent-topic: color-mix(in srgb, var(--tc), white var(--lift));
+  --tint: color-mix(in srgb, var(--accent-topic) 12%, transparent);
+}
+
+/* Code looks like the Xcode editor: dark panel, gutter, Xcode syntax colours */
+.code-block { counter-reset: ln; }
+.code-block .l { display: block; padding-right: 1rem; min-height: 1.65em; }
+.code-block .l::before {
+  counter-increment: ln; content: counter(ln); display: inline-block; width: 2.6em; margin-right: .9rem;
+  text-align: right; color: var(--code-gutter); user-select: none;
+}
+.code-block .k { color: var(--code-keyword); font-weight: 600; }
+.code-block .t { color: var(--code-type); }
+.code-block .s { color: var(--code-string); }
+.code-block .n { color: var(--code-number); }
+.code-block .c { color: var(--code-comment); font-style: italic; }
+.code-block .a { color: var(--code-attr); }
+
+@layer components {
+  .kbd { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; padding: 1px 5px; border-radius: 5px; border: 0.5px solid hsl(var(--input)); color: hsl(var(--muted-foreground)); }
+  .kbd-dark { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; padding: 1px 5px; border-radius: 5px; border: 0.5px solid currentColor; opacity: .7; margin-left: .25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
